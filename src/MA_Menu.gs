@@ -9,6 +9,8 @@ function onOpen() {
     .addItem('선택 블로그 AI 검수·교정', 'ma_aiReviewSelectedBlog')
     .addItem('선택 블로그 최종본 확정', 'ma_finalizeSelectedBlog')
     .addSeparator()
+    .addItem('선택 블로그 Threads 3종 생성', 'ma_generateSelectedThreads')
+    .addSeparator()
     .addItem('발행대기 생성', 'ma_syncPublishQueue')
     .addItem('상태 동기화', 'ma_syncStates')
     .addSeparator()
