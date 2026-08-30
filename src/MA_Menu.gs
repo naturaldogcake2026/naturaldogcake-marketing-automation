@@ -5,6 +5,9 @@ function onOpen() {
     .addItem('선택 콘텐츠 블로그 초안 생성', 'ma_createSelectedBlogDraft')
     .addItem('선택 콘텐츠 AI 블로그 작성', 'ma_generateSelectedBlogDraft')
     .addSeparator()
+    .addItem('선택 블로그 검수본 준비', 'ma_prepareSelectedBlogReview')
+    .addItem('선택 블로그 최종본 확정', 'ma_finalizeSelectedBlog')
+    .addSeparator()
     .addItem('발행대기 생성', 'ma_syncPublishQueue')
     .addItem('상태 동기화', 'ma_syncStates')
     .addSeparator()
@@ -28,15 +31,7 @@ function onEdit(e) {
       ma_recalcPublishState_(sheet, row);
     }
   } catch (err) {
-    ma_log_(
-      'ON_EDIT',
-      '',
-      '',
-      'ERROR',
-      'ERROR',
-      String(err && err.message ? err.message : err),
-      0,
-      'onEdit'
-    );
+    ma_log_('ON_EDIT', '', '', 'ERROR', 'ERROR',
+      String(err && err.message ? err.message : err), 0, 'onEdit');
   }
 }
