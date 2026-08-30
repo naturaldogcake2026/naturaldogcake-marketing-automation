@@ -15,6 +15,7 @@
  * - No generation before blog 검수완료 + 최종본문 존재
  * - No duplicate Thread ID/content rows
  * - Existing thread rows are never overwritten
+ * - I 최종본문 is intentionally left blank at generation time
  */
 
 function ma_generateSelectedThreads() {
@@ -103,12 +104,6 @@ function ma_generateSelectedThreads() {
         throw new Error('중복 Thread ID가 이미 존재합니다: ' + threadId);
       }
 
-      var finalText = ma_thrComposeFinal_(
-        item.data.hook,
-        item.data.body,
-        item.data.cta
-      );
-
       threadSheet.appendRow([
         threadId,                 // A Thread ID
         contentId,                // B Content ID
@@ -118,7 +113,7 @@ function ma_generateSelectedThreads() {
         item.data.hook,           // F Hook
         item.data.body,           // G 본문
         item.data.cta,            // H CTA
-        finalText,                // I 최종본문
+        '',                       // I 최종본문 - 검수 준비 전에는 비움
         '미검수',                 // J 검수상태
         '',                       // K 승인일
         '미준비',                 // L 발행상태
@@ -143,7 +138,7 @@ function ma_generateSelectedThreads() {
     );
 
     ss.toast(
-      'Threads 3종 생성 완료: 정보형 / 공감형 / 질문·참여형',
+      'Threads 3종 생성 완료. 각 Thread를 검수본 준비 후 확인해 주세요.',
       'Marketing Automation',
       8
     );

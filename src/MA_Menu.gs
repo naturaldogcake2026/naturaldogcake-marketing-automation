@@ -10,6 +10,8 @@ function onOpen() {
     .addItem('선택 블로그 최종본 확정', 'ma_finalizeSelectedBlog')
     .addSeparator()
     .addItem('선택 블로그 Threads 3종 생성', 'ma_generateSelectedThreads')
+    .addItem('선택 Thread 검수본 준비', 'ma_prepareSelectedThreadReview')
+    .addItem('선택 Thread 최종본 확정', 'ma_finalizeSelectedThread')
     .addSeparator()
     .addItem('발행대기 생성', 'ma_syncPublishQueue')
     .addItem('상태 동기화', 'ma_syncStates')
