@@ -3,6 +3,8 @@ function onOpen() {
     .createMenu('자연담은멍케이크 콘텐츠')
     .addItem('선택 행 ID/기본값 적용', 'ma_applySelectedContentDefaults')
     .addItem('선택 콘텐츠 블로그 초안 생성', 'ma_createSelectedBlogDraft')
+    .addItem('선택 콘텐츠 AI 블로그 작성', 'ma_generateSelectedBlogDraft')
+    .addSeparator()
     .addItem('발행대기 생성', 'ma_syncPublishQueue')
     .addItem('상태 동기화', 'ma_syncStates')
     .addSeparator()
