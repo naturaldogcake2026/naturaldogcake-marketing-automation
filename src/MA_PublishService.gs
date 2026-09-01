@@ -41,21 +41,25 @@ function ma_syncPublishQueue() {
       existingAssetIds
     );
 
+    // V1.3.3: 새로 등록된 Threads까지 포함해 전체 미완료 Threads를
+    // 발행완료 날짜와 충돌하지 않도록 하루 1건, 19:00로 재정렬한다.
+    var reflowResult = ma_reflowFuturePendingThreadsV133_();
+    var threadSyncCount = ma_syncThreadsScheduleFromPublishV133_();
+    var calendarResult = ma_rebuildPublishCalendarV133_();
+
     ma_log_(
       'PUBLISH_QUEUE_SYNC',
       '',
       '',
       'SUCCESS',
       'INFO',
-      '발행관리 신규 등록: ' + created + '건',
+      'V1.3.3 발행관리 신규 등록=' + created + '건, Threads 대상=' + reflowResult.pending + '건, 날짜변경=' + reflowResult.changed + '건, Threads초안 동기화=' + threadSyncCount + '건, 캘린더 작성=' + calendarResult.written + '건',
       Date.now() - start,
       'menu'
     );
 
     ss.toast(
-      created > 0
-        ? '발행관리 신규 등록: ' + created + '건'
-        : '새로 등록할 발행 항목이 없습니다.',
+      'V1.3.3 · 신규 ' + created + '건 / Threads ' + reflowResult.pending + '건 정렬 / 캘린더 ' + calendarResult.written + '건 재작성',
       'Marketing Automation',
       7
     );

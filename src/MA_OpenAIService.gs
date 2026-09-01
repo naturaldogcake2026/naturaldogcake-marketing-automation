@@ -131,13 +131,7 @@ function ma_buildBlogAiInput_(rowValues, h, settings) {
     references: ma_text_(ma_valueByHeader_(rowValues, h, '참고자료')),
     factNotes: ma_text_(ma_valueByHeader_(rowValues, h, '사실확인메모')),
 
-    knownBusinessFacts: {
-      classSnackPrice: settings.CLASS_SNACK_PRICE || '',
-      classCakePrice: settings.CLASS_CAKE_PRICE || '',
-      classDuration: settings.CLASS_DURATION || '',
-      classCapacity: settings.CLASS_CAPACITY || '',
-      classReservation: settings.CLASS_RESERVATION || ''
-    }
+    knownBusinessFacts: ma_getBusinessFacts_(settings)
   };
 }
 

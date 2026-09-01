@@ -15,7 +15,6 @@
  * - No generation before blog 검수완료 + 최종본문 존재
  * - No duplicate Thread ID/content rows
  * - Existing thread rows are never overwritten
- * - I 최종본문 is intentionally left blank at generation time
  */
 
 function ma_generateSelectedThreads() {
@@ -104,6 +103,12 @@ function ma_generateSelectedThreads() {
         throw new Error('중복 Thread ID가 이미 존재합니다: ' + threadId);
       }
 
+      var finalText = ma_thrComposeFinal_(
+        item.data.hook,
+        item.data.body,
+        item.data.cta
+      );
+
       threadSheet.appendRow([
         threadId,                 // A Thread ID
         contentId,                // B Content ID
@@ -113,7 +118,7 @@ function ma_generateSelectedThreads() {
         item.data.hook,           // F Hook
         item.data.body,           // G 본문
         item.data.cta,            // H CTA
-        '',                       // I 최종본문 - 검수 준비 전에는 비움
+        finalText,                // I 최종본문
         '미검수',                 // J 검수상태
         '',                       // K 승인일
         '미준비',                 // L 발행상태
@@ -138,7 +143,7 @@ function ma_generateSelectedThreads() {
     );
 
     ss.toast(
-      'Threads 3종 생성 완료. 각 Thread를 검수본 준비 후 확인해 주세요.',
+      'Threads 3종 생성 완료: 정보형 / 공감형 / 질문·참여형',
       'Marketing Automation',
       8
     );
@@ -187,6 +192,7 @@ function ma_thrCallOpenAI_(ctx) {
     '브랜드: ' + brandName,
     '기본 톤: ' + tone,
     '사실성 원칙: ' + factPolicy,
+    '설정 시트 운영 사실(이 범위를 우선 사용):\n' + ma_businessFactsText_(s),
     '',
     '중요 규칙:',
     '1. 블로그에 없는 실제 수업 사례, 고객 반응, 후기, 효과, 재료, 수치를 새로 만들지 않는다.',
@@ -198,7 +204,11 @@ function ma_thrCallOpenAI_(ctx) {
     '7. 해시태그 남발 금지. 필요하면 본문 말미에 0~3개 수준만 사용.',
     '8. 지역 키워드는 자연스럽게 사용하고 반복하지 않는다.',
     '9. 각 variant는 서로 문장 구조와 접근법이 분명히 달라야 한다.',
-    '10. 최종 길이는 Threads에서 읽기 편한 짧은 분량으로 작성한다.'
+    '10. 최종 길이는 Threads에서 읽기 편한 짧은 분량으로 작성한다.',
+    '11. 설정 또는 블로그 최종본문에 근거가 없는 주문·예약·픽업·사진전달 절차를 실제 운영 규칙처럼 새로 만들지 않는다. 제공되지 않은 절차는 문의로 확인하도록 표현한다.',
+    '12. 고객 데이터나 실제 사례 근거가 없으면 “보호자분들이 많아요”, “자주 선택해요”, “인기가 많아요”, “많이 문의해요”처럼 빈도·다수·선호를 암시하는 표현을 쓰지 않는다.',
+    '13. 사진 장수, 우선 사진 지정, 사진 각도별 제작 가능 여부, 특정 사진 준비 방식 등 설정에 없는 세부 제출 규칙을 만들지 않는다.',
+    '14. 공감형은 통계나 고객 경험을 꾸며 공감하지 말고, “고민될 수 있어요”, “처음이라면 궁금할 수 있어요”처럼 가능성 표현으로 작성한다.'
   ].join('\n');
 
   var c = ctx.content || {};
