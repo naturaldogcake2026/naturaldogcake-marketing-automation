@@ -21,18 +21,26 @@ function onOpen() {
     .addItem('3-2. 오늘 발행할 콘텐츠 확인', 'ma_showTodayPublishItems')
     .addItem('3-3. 선택 행 발행일정 동기화', 'ma_syncSelectedPublishSchedule')
     .addItem('3-4. 선택 행 수동 발행완료', 'ma_markSelectedPublishComplete')
-    .addItem('3-5. 전체 발행일정 정리·재동기화 V1.3.3', 'ma_reconcileAllPublishSchedules');
+    .addItem('3-5. 전체 발행일정 정리·재동기화 V1.3.3', 'ma_reconcileAllPublishSchedules')
+    .addItem('3-6. 발행완료 누락정보 복구 V1.5.2', 'ma_repairCompletedPublishMetadataV152');
 
-  var systemMenu = ui.createMenu('④ 시스템관리')
-    .addItem('4-1. 상태 동기화', 'ma_syncStates')
-    .addItem('4-2. 상태 점검', 'ma_runHealthCheck')
-    .addItem('4-3. 전체 동기화', 'ma_syncAll')
-    .addItem('4-4. V1.4 사실정보 설정 적용', 'ma_installV14BusinessFacts');
+  var performanceMenu = ui.createMenu('④ 성과관리')
+    .addItem('4-1. V1.5 성과관리 시트 설치', 'ma_installV15PerformanceSheet')
+    .addItem('4-2. 선택 발행건 성과 기록행 추가', 'ma_addSelectedPerformanceSnapshot')
+    .addItem('4-3. 오늘 성과 측정대상 확인', 'ma_showTodayPerformanceTargets')
+    .addItem('4-4. 오늘 측정대상 기록행 생성', 'ma_createTodayPerformanceSnapshots');
+
+  var systemMenu = ui.createMenu('⑤ 시스템관리')
+    .addItem('5-1. 상태 동기화', 'ma_syncStates')
+    .addItem('5-2. 상태 점검', 'ma_runHealthCheck')
+    .addItem('5-3. 전체 동기화', 'ma_syncAll')
+    .addItem('5-4. V1.4 사실정보 설정 적용', 'ma_installV14BusinessFacts');
 
   ui.createMenu('자연담은멍케이크 콘텐츠')
     .addSubMenu(createMenu)
     .addSubMenu(reviewMenu)
     .addSubMenu(publishMenu)
+    .addSubMenu(performanceMenu)
     .addSubMenu(systemMenu)
     .addToUi();
 }
