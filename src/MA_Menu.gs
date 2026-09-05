@@ -34,7 +34,8 @@ function onOpen() {
     .addItem('5-1. 상태 동기화', 'ma_syncStates')
     .addItem('5-2. 상태 점검', 'ma_runHealthCheck')
     .addItem('5-3. 전체 동기화', 'ma_syncAll')
-    .addItem('5-4. V1.4 사실정보 설정 적용', 'ma_installV14BusinessFacts');
+    .addItem('5-4. V1.4 사실정보 설정 적용', 'ma_installV14BusinessFacts')
+    .addItem('5-5. V1.6.1 블로그 로드맵 적용', 'ma_installV161BlogRoadmap');
 
   ui.createMenu('자연담은멍케이크 콘텐츠')
     .addSubMenu(createMenu)
@@ -60,15 +61,7 @@ function onEdit(e) {
       ma_recalcPublishState_(sheet, row);
     }
   } catch (err) {
-    ma_log_(
-      'ON_EDIT',
-      '',
-      '',
-      'ERROR',
-      'ERROR',
-      String(err && err.message ? err.message : err),
-      0,
-      'onEdit'
-    );
+    ma_log_('ON_EDIT','','','ERROR','ERROR',
+      String(err && err.message ? err.message : err),0,'onEdit');
   }
 }
